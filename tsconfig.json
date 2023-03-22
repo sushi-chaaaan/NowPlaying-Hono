@@ -5,16 +5,11 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
-    "lib": [
-      "esnext"
-    ],
-    "types": [
-      "@cloudflare/workers-types"
-    ],
+    "lib": ["esnext"],
+    "types": ["@cloudflare/workers-types"],
+    "typeRoots": ["types"],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",
     // "jsxFragmentFactory": "Fragment",
