@@ -1,7 +1,7 @@
 {
   "scripts": {
     "deploy": "wrangler publish src/index.ts",
-    "dev": "wrangler dev src/index.ts",
+    "dev": "wrangler dev",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
     "preinstall": "typesync || :",
     "postinstall": "yarn run sort-package-json"
