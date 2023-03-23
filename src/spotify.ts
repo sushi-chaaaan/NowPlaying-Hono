@@ -1,13 +1,12 @@
 import { Hono } from 'hono'
 
-import spotifyClient from '@/utils/spotifyClient'
+import spotifyWorkersClient from '@/utils/spotifyWorkersClient'
 
 // https://hono.dev/getting-started/cloudflare-workers#bindings
 export const spotifyRoute = new Hono<{ Bindings: Bindings }>()
 
 spotifyRoute.get('/', (ctx) => {
-  const client = new spotifyClient()
-
+  const client = new spotifyWorkersClient()
   // FIXME: ここをなんとか非同期実行にしないといけない
   client
     .requestToken({
