@@ -43,9 +43,8 @@ class spotifyWorkersClient {
     const { access_token, token_type, expires_in } =
       payload.data as accessTokenPayload
 
-    console.debug("fetching token from spotify's api")
     this.accessToken = access_token
-    await this.CACHE_TOKEN.put('token', access_token, {
+    await this.CACHE_TOKEN.put('spotify_access_token', access_token, {
       expirationTtl: expires_in,
     })
   }
@@ -63,10 +62,13 @@ class spotifyWorkersClient {
   private async getAccessToken(): Promise<string> {
     let token = this.accessToken
     if (!token) {
-      token = (await this.CACHE_TOKEN.get('token', 'text')) ?? ''
+      token = (await this.CACHE_TOKEN.get('spotify_access_token', 'text')) ?? ''
       if (!token) {
+        console.debug("fetching token from spotify's api")
         await this.requestToken()
         token = this.accessToken
+      } else {
+        console.debug('fetched token from kv cache')
       }
     }
     return token
