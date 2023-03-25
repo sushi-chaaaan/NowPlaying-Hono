@@ -43,6 +43,7 @@ class spotifyWorkersClient {
     const { access_token, token_type, expires_in } =
       payload.data as accessTokenPayload
 
+    console.debug("fetching token from spotify's api")
     this.accessToken = access_token
     await this.CACHE_TOKEN.put('token', access_token, {
       expirationTtl: expires_in,
