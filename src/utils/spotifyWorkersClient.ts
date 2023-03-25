@@ -16,7 +16,6 @@ class spotifyWorkersClient {
   }
 
   private async requestToken(): Promise<void> {
-    console.debug('Generating token...')
     // look below for the client credentials flow
     // https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
     const requestUrl = 'https://accounts.spotify.com/api/token'
@@ -33,11 +32,10 @@ class spotifyWorkersClient {
       body: params,
     })
     console.debug(response.status)
-    console.debug(response.statusText)
-    console.debug(await response.clone().text())
 
     const payload = await handleResponse(response)
     if (!payload.ok) {
+      console.debug(await response.clone().text())
       throw new Error(payload.message)
     }
     const { access_token, token_type, expires_in } =
