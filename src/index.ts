@@ -18,9 +18,10 @@ app.get('/', async (ctx) => {
   }
 
   const trackInfo = await client.getTrackInfo(trackUrl)
-  const nowPlayingLiteral = `
-#NowPlaying
-${trackInfo.name}/ ${trackInfo.artists.join(', ')} - ${trackInfo.album}`
+  const nowPlayingLiteral = `#NowPlaying
+${trackInfo.name}/ ${trackInfo.artists.join(', ')} - ${trackInfo.album}
+${trackUrl}
+`
 
   return ctx.json({
     url: trackUrl,
