@@ -15,8 +15,10 @@ class spotifyWorkersClient {
     this.CACHE_TOKEN = KVNamespace
   }
 
-  public async requestToken(): Promise<void> {
+  private async requestToken(): Promise<void> {
     console.debug('Generating token...')
+    // look below for the client credentials flow
+    // https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
     const requestUrl = 'https://accounts.spotify.com/api/token'
     const params = new URLSearchParams({
       grant_type: 'client_credentials',
@@ -33,8 +35,8 @@ class spotifyWorkersClient {
     console.debug(response.status)
     console.debug(response.statusText)
     console.debug(await response.clone().text())
-    const payload = await handleResponse(response)
 
+    const payload = await handleResponse(response)
     if (!payload.ok) {
       throw new Error(payload.message)
     }
