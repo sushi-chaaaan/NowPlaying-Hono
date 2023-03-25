@@ -71,21 +71,21 @@ class spotifyWorkersClient {
 
   public async getTrackInfo(trackUrl: string): Promise<trackInfo> {
     const trackId = this.extractTrackId(trackUrl)
+    const accessToken = await this.getAccessToken()
 
     const query = new URLSearchParams({
       locale: 'ja_JP',
       market: 'JP',
     })
     const requestUrl = `https://api.spotify.com/v1/tracks/${trackId}?${query}`
-
     const response = await doFetch(requestUrl, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${await this.getAccessToken()}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
-    const payload = await handleResponse(response)
 
+    const payload = await handleResponse(response)
     if (!payload.ok) {
       throw new Error(payload.message)
     }

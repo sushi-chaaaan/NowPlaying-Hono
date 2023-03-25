@@ -17,15 +17,18 @@ app.get('/', async (ctx) => {
     return ctx.text('No track url')
   }
 
-  const accessToken = await client.requestToken()
-
   const trackInfo = await client.getTrackInfo(trackUrl)
-
   const nowPlayingLiteral = `
 #NowPlaying
 ${trackInfo.name}/ ${trackInfo.artists.join(', ')} - ${trackInfo.album}`
 
-  return ctx.text(nowPlayingLiteral)
+  return ctx.json({
+    url: trackUrl,
+    track_name: trackInfo.name,
+    artists: trackInfo.artists,
+    album: trackInfo.album,
+    message: nowPlayingLiteral,
+  })
 })
 
 export default app
