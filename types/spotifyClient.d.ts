@@ -8,3 +8,9 @@ type clientCredential = {
   clientId: string
   clientSecret: string
 }
+
+type trackInfo = {
+  name: string
+  artists: string[]
+  album: string
+}

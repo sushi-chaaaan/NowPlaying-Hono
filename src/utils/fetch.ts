@@ -6,7 +6,7 @@ export const handleResponse = async (
   response: Response,
 ): Promise<FetchResponse<unknown>> => {
   const isJson = response.headers.get('content-type')?.includes('json')
-  const data = isJson ? await response.json() : null
+  const data = isJson ? await response.clone().json() : null
   if (!response.ok) {
     let message
     if (data === null) {

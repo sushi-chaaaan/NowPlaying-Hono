@@ -1,3 +1,12 @@
 name = "nowplaying-hono"
 main = "src/index.ts"
-compatibility_date = "2023-01-01"
+compatibility_date = "2023-03-21"
+
+kv_namespaces = [
+{ binding = "CACHE_TOKEN", id = "6dab2ca4f73040d3bc074aeba100dc63", preview_id = "4e3c9dfac4aa408aac00be52390cbbfb" }
+]
+
+# The necessary secrets are:
+# - SPOTIFY_CLIENT_ID
+# - SPOTIFY_CLIENT_SECRET
+# Run `echo <VALUE> | wrangler secret put <NAME>` for each of these
