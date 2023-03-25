@@ -3,9 +3,7 @@ import spotifyWorkersClient from '@/utils/spotifyWorkersClient'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
-app.get('/', (ctx) => ctx.text('Hello Hono!'))
-
-app.post('/', async (ctx) => {
+app.get('/', async (ctx) => {
   console.log(ctx.env.SPOTIFY_CLIENT_ID)
   const client = new spotifyWorkersClient(
     {
