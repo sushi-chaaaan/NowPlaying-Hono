@@ -1,18 +1,18 @@
 import { doFetch, handleResponse } from '@/utils/fetch'
 
 class spotifyWorkersClient {
-  private CACHE_TOKEN: KVNamespace
+  private AccessTokenCache: KVNamespace
   private clientId: string
   private clientSecret: string
   private accessToken: string = ''
 
   constructor(
     { clientId, clientSecret }: clientCredential,
-    KVNamespace: KVNamespace,
+    AccessTokenCache: KVNamespace,
   ) {
     this.clientId = clientId
     this.clientSecret = clientSecret
-    this.CACHE_TOKEN = KVNamespace
+    this.AccessTokenCache = AccessTokenCache
   }
 
   private async requestToken(): Promise<void> {
@@ -42,7 +42,7 @@ class spotifyWorkersClient {
       payload.data as accessTokenPayload
 
     this.accessToken = access_token
-    await this.CACHE_TOKEN.put('spotify_access_token', access_token, {
+    await this.AccessTokenCache.put('spotify_access_token', access_token, {
       expirationTtl: expires_in,
     })
   }
@@ -60,7 +60,8 @@ class spotifyWorkersClient {
   private async getAccessToken(): Promise<string> {
     let token = this.accessToken
     if (!token) {
-      token = (await this.CACHE_TOKEN.get('spotify_access_token', 'text')) ?? ''
+      token =
+        (await this.AccessTokenCache.get('spotify_access_token', 'text')) ?? ''
       if (!token) {
         console.debug("fetching token from spotify's api")
         await this.requestToken()
