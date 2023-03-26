@@ -435,6 +435,11 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.2.tgz#6c2324641cc4ba050a8c710b2b251b377581fbf0"
   integrity sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg==
 
+"@types/spotify-api@^0.0.21":
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/@types/spotify-api/-/spotify-api-0.0.21.tgz#ebc98ee2887f50986406e883a0d4c46af60ef578"
+  integrity sha512-26dd63oO7sxKt48dnivb8c1hvHEtNmGWi/vesAFm55Z1NiI09ytYUyKPVY8tBMn1nNbglfGA3cGxXhlOYN6SAw==
+
 "@types/stack-trace@0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/stack-trace/-/stack-trace-0.0.29.tgz#eb7a7c60098edb35630ed900742a5ecb20cfcb4d"

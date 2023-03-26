@@ -3,7 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2023-03-21"
 
 kv_namespaces = [
-{ binding = "CACHE_TOKEN", id = "6dab2ca4f73040d3bc074aeba100dc63", preview_id = "4e3c9dfac4aa408aac00be52390cbbfb" }
+{ binding = "CACHE_TOKEN", id = "6dab2ca4f73040d3bc074aeba100dc63", preview_id = "4e3c9dfac4aa408aac00be52390cbbfb" },
+{ binding = "TRACK_CACHE", id = "5bd461ba4e404db0ad25635b113b5ad1", preview_id = "85cc000a54fa422b9ce3484eb33a78e2" }
 ]
 
 # The necessary secrets are:

@@ -10,7 +10,10 @@ app.get('/', async (ctx) => {
       clientId: ctx.env.SPOTIFY_CLIENT_ID,
       clientSecret: ctx.env.SPOTIFY_CLIENT_SECRET,
     },
-    ctx.env.CACHE_TOKEN,
+    {
+      tokenKV: ctx.env.CACHE_TOKEN,
+      trackKV: ctx.env.TRACK_CACHE,
+    },
   )
   const trackUrl = ctx.req.query('url')
   if (!trackUrl) {

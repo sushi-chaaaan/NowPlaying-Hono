@@ -9,8 +9,18 @@ type clientCredential = {
   clientSecret: string
 }
 
+type cacheKVNamespace = {
+  tokenKV: KVNamespace
+  trackKV: KVNamespace
+}
+
 type trackInfo = {
   name: string
   artists: string[]
   album: string
+}
+
+type spotifyElementData = {
+  id: string
+  type: 'track' | 'artist' | 'album' | 'playlist' | 'show' | 'episode' | 'user'
 }
