@@ -6,11 +6,13 @@ export const handleResponse = async (
   response: Response,
 ): Promise<FetchResponse<unknown>> => {
   const isJson = response.headers.get('content-type')?.includes('json')
-  const data = isJson ? await response.clone().json() : null
+  const resp = response.clone()
+
+  const data = isJson ? await resp.json() : null
   if (!response.ok) {
     let message
     if (data === null) {
-      message = response.statusText
+      message = resp.statusText
     } else if (typeof data === 'string') {
       message = data
     } else if (
@@ -27,14 +29,14 @@ export const handleResponse = async (
       data: null,
       message: message,
       ok: false,
-      status: response.status,
+      status: resp.status,
     }
   }
 
   return {
     data: data,
-    message: response.statusText,
+    message: resp.statusText,
     ok: true,
-    status: response.status,
+    status: resp.status,
   }
 }
