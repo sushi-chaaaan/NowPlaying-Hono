@@ -4,7 +4,11 @@ import spotifyWorkersClient from '@/utils/spotifyWorkersClient'
 const app = new Hono<{ Bindings: Bindings }>()
 
 app.get('/', async (ctx) => {
-  console.log(ctx.env.SPOTIFY_CLIENT_ID)
+  const trackUrl = ctx.req.query('url')
+  if (!trackUrl) {
+    return ctx.text('No track url')
+  }
+
   const client = new spotifyWorkersClient(
     {
       clientId: ctx.env.SPOTIFY_CLIENT_ID,
@@ -15,10 +19,6 @@ app.get('/', async (ctx) => {
       trackKV: ctx.env.TRACK_CACHE,
     },
   )
-  const trackUrl = ctx.req.query('url')
-  if (!trackUrl) {
-    return ctx.text('No track url')
-  }
 
   const trackInfo = await client.getTrackInfo(trackUrl)
   const nowPlayingLiteral = `#NowPlaying
