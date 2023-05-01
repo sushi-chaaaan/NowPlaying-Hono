@@ -1,12 +1,15 @@
 import { Hono } from 'hono'
 import spotifyWorkersClient from '@/utils/spotifyWorkersClient'
+import { StatusCode } from 'hono/utils/http-status'
 
+const api = new Hono<{ Bindings: Bindings }>()
 const app = new Hono<{ Bindings: Bindings }>()
 
-app.get('/', async (ctx) => {
+api.get('/track', async (ctx) => {
   const trackUrl = ctx.req.query('url')
   if (!trackUrl) {
-    return ctx.text('No track url')
+    ctx.status(400)
+    return ctx.json({ message: 'Missing track url parameter' })
   }
 
   const client = new spotifyWorkersClient(
@@ -20,20 +23,15 @@ app.get('/', async (ctx) => {
     },
   )
 
-  const trackInfo = await client.getTrackInfo(trackUrl)
-  const nowPlayingLiteral = `#NowPlaying
-${trackInfo.name} / ${trackInfo.artists.join(', ')} - ${trackInfo.album}
-${trackUrl}
-`
+  const { track, rawResponse } = await client.getTrack(trackUrl)
+  if (!track) {
+    ctx.status(rawResponse.status as StatusCode)
+    return ctx.json({ message: rawResponse.statusText })
+  }
 
-  return ctx.json({
-    url: trackUrl,
-    track_name: trackInfo.name,
-    artists: trackInfo.artists,
-    album: trackInfo.album,
-    message: nowPlayingLiteral,
-    rawData: trackInfo.rawData,
-  })
+  return ctx.json({ message: rawResponse.statusText, track: track })
 })
+
+app.route('/api', api)
 
 export default app

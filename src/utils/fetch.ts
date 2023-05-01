@@ -1,3 +1,5 @@
+import { StatusCode } from 'hono/utils/http-status'
+
 export const doFetch = async (url: string, options?: RequestInit) => {
   return await fetch(url, options)
 }
@@ -29,7 +31,7 @@ export const handleResponse = async (
       data: null,
       message: message,
       ok: false,
-      status: resp.status,
+      status: resp.status as StatusCode,
     }
   }
 
@@ -37,6 +39,6 @@ export const handleResponse = async (
     data: data,
     message: resp.statusText,
     ok: true,
-    status: resp.status,
+    status: resp.status as StatusCode,
   }
 }

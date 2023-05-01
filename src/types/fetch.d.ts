@@ -4,12 +4,12 @@ type FetchSuccessResponse<T> = {
   data: T
   message: string
   ok: true
-  status: number
+  status: import('hono/utils/http-status').StatusCode
 }
 
 type FetchErrorResponse = {
   data: null
   message: string
   ok: false
-  status: number
+  status: import('hono/utils/http-status').StatusCode
 }

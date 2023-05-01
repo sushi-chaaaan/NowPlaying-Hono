@@ -14,11 +14,9 @@ type cacheKVNamespace = {
   trackKV: KVNamespace
 }
 
-type trackInfo = {
-  name: string
-  artists: string[]
-  album: string
-  rawData: SpotifyApi.TrackObjectFull
+type trackResponse = {
+  track: SpotifyApi.TrackObjectFull | undefined
+  rawResponse: Response
 }
 
 type spotifyElementData = {

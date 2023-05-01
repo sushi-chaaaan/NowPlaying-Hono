@@ -76,17 +76,16 @@ class spotifyWorkersClient {
     return token
   }
 
-  public async getTrackInfo(trackUrl: string): Promise<trackInfo> {
+  public async getTrack(trackUrl: string): Promise<trackResponse> {
     const trackData = this.extractElementData(trackUrl)
-    const cachedTrack = await this.getTrackInfoFromCache(trackData.id)
+    const cachedTrack = await this.getTrackFromCache(trackData.id)
     if (cachedTrack) {
       return {
-        name: cachedTrack.name,
-        artists: cachedTrack.artists.map(
-          (artist: SpotifyApi.ArtistObjectSimplified) => artist.name,
-        ),
-        album: cachedTrack.album.name,
-        rawData: cachedTrack,
+        track: cachedTrack,
+        rawResponse: new Response('Fetch from cache', {
+          status: 200,
+          statusText: 'Fetch from cache',
+        }),
       }
     }
 
@@ -105,18 +104,17 @@ class spotifyWorkersClient {
 
     const payload = await handleResponse(response)
     if (!payload.ok) {
-      throw new Error(payload.message)
+      return {
+        track: undefined,
+        rawResponse: response,
+      }
     }
 
     const trackResponse = payload.data as SpotifyApi.TrackObjectFull
     await this.writeTrackInfoToCache(trackResponse)
     return {
-      name: trackResponse.name,
-      artists: trackResponse.artists.map(
-        (artist: SpotifyApi.ArtistObjectSimplified) => artist.name,
-      ),
-      album: trackResponse.album.name,
-      rawData: trackResponse,
+      track: trackResponse,
+      rawResponse: response,
     }
   }
 
@@ -128,7 +126,7 @@ class spotifyWorkersClient {
     })
   }
 
-  private async getTrackInfoFromCache(
+  private async getTrackFromCache(
     trackId: string,
   ): Promise<SpotifyApi.SingleTrackResponse | undefined> {
     const track = (await this.TrackCache.get(
