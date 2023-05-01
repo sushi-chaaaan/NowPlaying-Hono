@@ -32,6 +32,7 @@ ${trackUrl}
     artists: trackInfo.artists,
     album: trackInfo.album,
     message: nowPlayingLiteral,
+    rawData: trackInfo.rawData,
   })
 })
 

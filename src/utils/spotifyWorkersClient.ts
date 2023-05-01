@@ -86,6 +86,7 @@ class spotifyWorkersClient {
           (artist: SpotifyApi.ArtistObjectSimplified) => artist.name,
         ),
         album: cachedTrack.album.name,
+        rawData: cachedTrack,
       }
     }
 
@@ -107,7 +108,7 @@ class spotifyWorkersClient {
       throw new Error(payload.message)
     }
 
-    const trackResponse = payload.data as SpotifyApi.SingleTrackResponse
+    const trackResponse = payload.data as SpotifyApi.TrackObjectFull
     await this.writeTrackInfoToCache(trackResponse)
     return {
       name: trackResponse.name,
@@ -115,6 +116,7 @@ class spotifyWorkersClient {
         (artist: SpotifyApi.ArtistObjectSimplified) => artist.name,
       ),
       album: trackResponse.album.name,
+      rawData: trackResponse,
     }
   }
 
