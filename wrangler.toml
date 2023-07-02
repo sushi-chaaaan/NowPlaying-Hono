@@ -1,13 +1,17 @@
 name = "nowplaying-hono"
 main = "src/index.ts"
-compatibility_date = "2023-03-21"
+compatibility_date = "2023-07-02"
+compatibility_flags = [ "nodejs_compat" ]
 
 kv_namespaces = [
-{ binding = "CACHE_TOKEN", id = "6dab2ca4f73040d3bc074aeba100dc63" },
-{ binding = "TRACK_CACHE", id = "5bd461ba4e404db0ad25635b113b5ad1" }
+{ binding = "CACHE_TOKEN", id = "6dab2ca4f73040d3bc074aeba100dc63", preview_id = "a1de4365f4884298929f053c8bfb412b" },
+{ binding = "TRACK_CACHE", id = "5bd461ba4e404db0ad25635b113b5ad1", preview_id = "85cc000a54fa422b9ce3484eb33a78e2" }
 ]
 
 # The necessary secrets are:
 # - SPOTIFY_CLIENT_ID
 # - SPOTIFY_CLIENT_SECRET
 # Run `echo <VALUE> | wrangler secret put <NAME>` for each of these
+
+[placement]
+mode = "smart"

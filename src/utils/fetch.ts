@@ -4,9 +4,9 @@ export const doFetch = async (url: string, options?: RequestInit) => {
   return await fetch(url, options)
 }
 
-export const handleResponse = async (
+export const handleResponse = async <T>(
   response: Response,
-): Promise<FetchResponse<unknown>> => {
+): Promise<FetchResponse<T>> => {
   const isJson = response.headers.get('content-type')?.includes('json')
   const resp = response.clone()
 
@@ -35,6 +35,7 @@ export const handleResponse = async (
     }
   }
 
+  // TODO: validation
   return {
     data: data,
     message: resp.statusText,
