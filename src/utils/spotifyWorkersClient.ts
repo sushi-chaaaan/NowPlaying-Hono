@@ -50,7 +50,7 @@ class spotifyWorkersClient {
 
   private extractElementData(trackUrl: string): spotifyElementData {
     const regexp =
-      /^(http[s]?:\/\/)s?open.spotify.com\/(?<type>track|artist|album|playlist|show|episode|user)\/(?<id>[0-9A-Za-z]+)(\?.*)?$/
+      /^(http[s]?:\/\/)s?open.spotify.com\/((?<region>[0-9A-Za-z\-]+)\/)?(?<type>track|artist|album|playlist|show|episode|user)\/(?<id>[0-9A-Za-z]+)(\?.*)?$/
     const match = trackUrl.match(regexp)
     if (!match) {
       throw new Error('Invalid track url')
